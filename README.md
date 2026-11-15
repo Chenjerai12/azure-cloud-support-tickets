@@ -39,3 +39,5 @@ Target: L2 Azure Support Engineer - Johannesburg / Remote SA
 
 ---
 *Lab built following Microsoft L2 Support Engineer documentation pattern*
+---
+**Note:** All labs in this repo are simulations based on Microsoft Learn docs, built to practice L2 triage for SA North region. No customer data.
