@@ -1,7 +1,7 @@
 # L2 Azure Cloud Support Lab - 20+ Tickets | South Africa 
 
 **Location:** Kimberley / Johannesburg | **Focus:** L2 Support Tools: IP Flow Verify, Network Watcher, Entra ID Sign-in Logs, Conditional Access, Boot Diagnostics, Azure Monitor
-**Goal:** R32k L2 Cloud Support Engineer Role
+**Goal:**  L2 Cloud Support Engineer Role
 
 This repo simulates real Azure L2 support tickets with RCA, Bicep fix, and prevention (no delete).
 
@@ -34,7 +34,7 @@ Azure Network Watcher > IP Flow Verify, NSG Flow Logs, Effective Security Rules,
 3.  Prevention: Resource Lock + Azure Monitor Alert + Documentation
 
 ## Profile
-LinkedIn: Chenjerai | Systems Technician @ STG Africa | Kimberley
+LinkedIn: Chenjerai | Systems Technician @ STG Africa | Johannesburg
 Target: L2 Azure Support Engineer - Johannesburg / Remote SA
 
 ---
