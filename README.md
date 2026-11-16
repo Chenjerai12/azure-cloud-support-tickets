@@ -1,37 +1,125 @@
-# L2 Azure Cloud Support Lab - 20+ Tickets | South Africa 
+# Microsoft 365 & Azure IT Support – Practical Labs
 
-**Location:** Kimberley / Johannesburg | **Focus:** L2 Support Tools: IP Flow Verify, Network Watcher, Entra ID Sign-in Logs, Conditional Access, Boot Diagnostics, Azure Monitor
-**Goal:**  L2 Cloud Support Engineer Role
+![AZ-104](https://img.shields.io/badge/AZ--104-Certified-blue) ![M365](https://img.shields.io/badge/Microsoft%20365-Support-orange) ![Azure](https://img.shields.io/badge/Azure-Support-blue) ![Intune](https://img.shields.io/badge/Intune-Endpoint-lightgrey) ![Status](https://img.shields.io/badge/Labs-14%20Tickets-green)
 
-This repo simulates real Azure L2 support tickets with RCA, Bicep fix, and prevention (no delete).
+### Project Overview
+This repository documents my practical learning journey in IT Support, focusing on Microsoft 365 and Azure cloud services, Windows troubleshooting and IT service management.
 
-## Ticket Index
+The objective is to develop practical technical support skills through simulated real-world IT support tickets, systematic troubleshooting, problem diagnosis, resolution and incident documentation.
 
-### Network / NSG (A)
-- **A01 - RDP Blocked by NSG:** IP Flow Verify shows Deny. Fix: Remove restrictive NSG rule, add specific Allow, Resource Lock on NSG.
-- **A02 - App Connectivity:** NSG + Effective Security Rules triage.
-- **A03 - Effective Routes:** UDR misroute fix.
+Rather than focusing only on theoretical knowledge, this repository demonstrates how IT support issues are investigated and resolved in a business environment.
 
-### Compute / Boot Diagnostics (B)
-- **B01 - VM Boot Failed:** Boot Diagnostics screenshot analysis, fix with AZ CLI redeploy.
-- **B02 - VM Extension Failed:** Log analysis + Bicep redeploy.
+### Learning Objectives
+- Develop practical Microsoft 365 administration and troubleshooting skills
+- Troubleshoot Outlook and Exchange Online issues
+- Understand Microsoft Entra ID and identity management
+- Develop Azure administration and cloud support capabilities
+- Troubleshoot Windows operating system and endpoint issues
+- Understand user access, authentication and permissions
+- Practice IT service management (ITSM) documentation
 
-### Identity / Entra ID (C)
-- **C01 - Sign-in Logs Blocked:** Entra ID Sign-in Logs show Conditional Access block. Fix: Conditional Access exclusion.
-- **C02 - Conditional Access Lockout:** Break-glass account, policy report.
-- **C03 - Entra ID Sync Issue:** Entra Connect Health logs.
+### Technologies and Tools
 
-### Monitoring / Cost (D)
-- **D01 - Azure Monitor Alert:** KQL query, Action Group, alert suppression.
-- **D02 - Cost Alert:** Cost Management anomaly.
+| Technology | Learning Focus |
+| :--- | :--- |
+| **Microsoft 365** | Administration and troubleshooting |
+| **Microsoft Outlook** | Email and calendar support |
+| **Exchange Online** | Mailboxes and permissions |
+| **Microsoft Entra ID** | Identity and access management |
+| **Microsoft 365 Admin Centre** | User and service administration |
+| **Exchange Admin Centre** | Mailbox administration |
+| **Microsoft Azure** | Cloud infrastructure support |
+| **Azure Portal** | Resource management |
+| **Windows 11** | Endpoint troubleshooting |
+| **PowerShell** | Administrative tasks |
+| **Microsoft Teams** | Collaboration support |
 
-## Tools Used
-Azure Network Watcher > IP Flow Verify, NSG Flow Logs, Effective Security Rules, Boot Diagnostics, Microsoft Entra ID > Sign-in Logs, Conditional Access, Azure Monitor, Azure CLI, Bicep, Resource Locks
+### Practical Support Labs
 
-## Prevention Pattern (Every Ticket)
-1.  RCA with native tool (not delete)
-2.  Fix with Bicep / CLI
-3.  Prevention: Resource Lock + Azure Monitor Alert + Documentation
+#### 1. Microsoft 365 Support
+| Ticket | Scenario | Status |
+| :--- | :--- | :--- |
+| **INC001** | Outlook unable to send or receive emails | Completed |
+| **INC002** | User unable to access a shared mailbox | In Progress |
+| **INC003** | Outlook repeatedly requesting credentials | Planned |
+| **INC004** | User unable to access Microsoft 365 applications | Planned |
+| **INC005** | Outlook calendar synchronization issue | Planned |
+
+#### 2. Azure Support
+| Lab | Scenario | Status |
+| :--- | :--- | :--- |
+| **AZ001** | Locate and review Azure virtual machines | Planned |
+| **AZ002** | Troubleshoot virtual machine connectivity (NSG, RDP) | Planned |
+| **AZ003** | Investigate Azure resource access permissions (RBAC/IAM) | Planned |
+| **AZ004** | Investigate virtual machine availability | Planned |
+| **AZ005** | Review Azure monitoring and alerts (Azure Monitor / KQL) | Planned |
+
+#### 3. Windows Endpoint Support
+| Lab | Scenario | Status |
+| :--- | :--- | :--- |
+| **WIN001** | Troubleshoot Windows login issues (Entra ID Join, Hello) | Planned |
+| **WIN002** | Investigate network connectivity problems | Planned |
+| **WIN003** | Troubleshoot application installation (Intune / Company Portal) | Planned |
+| **WIN004** | Investigate device performance issues | Planned |
+
+### Troubleshooting Methodology
+Each practical ticket follows a structured troubleshooting approach:
+
+1.  **Incident Identification** – Understand the reported problem and its impact
+2.  **Scope Establishment** – Is it one user, multiple users, or service-wide?
+3.  **Initial Troubleshooting** – Check Service Health, compare with working user, basic checks
+4.  **Investigation & Log Analysis** – Entra ID Sign-in logs, Exchange logs, Event Viewer, KQL, `dsregcmd /status`
+5.  **Root Cause Analysis** – Identify missing permission, policy block, or config issue
+6.  **Resolution** – Fix via Admin Centre GUI or PowerShell
+7.  **Verification and Testing** – User confirms fix, test functionality
+8.  **User Communication** – Clear update on fix and replication time
+9.  **Documentation and Closure** – ITSM closure with skills demonstrated
+
+### Each Completed Ticket Contains
+- Ticket reference number
+- Incident title
+- User and department
+- Reported symptoms
+- Business impact and priority
+- Initial troubleshooting
+- Investigation findings
+- Root cause
+- Resolution steps (Portal + PowerShell)
+- Verification and testing
+- User communication
+- Final ticket status
+- Lessons learned
+
+### Current Progress
+
+**Microsoft 365**
+- [x] Ticket 001 – Outlook connectivity troubleshooting
+- [ ] Ticket 002 – Shared mailbox access troubleshooting
+- [ ] Additional Exchange Online support scenarios
+
+**Azure**
+- [ ] Virtual machine administration (AZ001, AZ004)
+- [ ] Azure networking troubleshooting (AZ002)
+- [ ] Identity and access management (AZ003 - RBAC)
+- [ ] Azure monitoring and diagnostics (AZ005 - KQL / Alerts)
+
+**Windows Endpoint Support**
+- [ ] Windows login troubleshooting (WIN001)
+- [ ] Network connectivity (WIN002)
+- [ ] Application troubleshooting (WIN003 - Intune)
+
+### Professional Development
+This project complements my Microsoft Azure Administrator certification (AZ-104) and supports my development towards Cloud Support and DevOps roles.
+
+The focus is on building practical troubleshooting experience, understanding enterprise IT environments and developing the ability to investigate and resolve technical incidents.
+
+### Disclaimer
+The support tickets documented in this repository are simulated training scenarios created for educational and professional development purposes.
+
+No confidential company information, real user credentials or private organisational data is included.
+
+**Project:** Microsoft 365 & Azure IT Support – Practical Labs  
+**Focus:** IT Support | Microsoft 365 | Azure | Cloud Support | Troubleshooting
 
 ## Profile
 LinkedIn: Chenjerai | Systems Technician @ STG Africa | Johannesburg
