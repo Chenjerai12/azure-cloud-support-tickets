@@ -1,6 +1,77 @@
-Incident: Outlook unable to send or receive emails.
-Investigation: Internet, Work Offline, Service Health, Outlook Web and desktop configuration.
-Finding: Outlook required re-authentication.
-Resolution: Microsoft 365 sign-in and MFA completed.
-Verification: Sending and receiving emails confirmed working.
-Status: Resolved.
+
+
+Ticket reference number
+INC001
+
+Incident title
+Outlook unable to send or receive emails
+
+User and department
+User: Sipho Nkosi
+Department: Finance
+Affected Service: Microsoft 365 Exchange Online / Outlook Desktop
+
+Reported symptoms
+- Outlook shows "Disconnected" / "Work Offline"
+- Unable to send or receive emails in Outlook desktop
+- Outlook Web (OWA) works fine at outlook.office.com
+- Issue after password prompt
+- Colleague on same network works normally
+
+Business impact and priority
+- Priority: P2 - High
+- Impact: Finance month-end reporting delayed
+- Scope: Single user, not service-wide
+- Service Health: Exchange Online healthy
+
+Initial troubleshooting
+1. Scope check: Only one user affected, colleague in Finance works
+2. Service Health: admin.microsoft.com > Health > Service health > Exchange Online - No issues
+3. Network check: Internet working, Teams and OneDrive working
+4. Outlook status: Bottom bar shows Work Offline enabled, Account shows Need Password
+
+Investigation findings
+- Entra ID Sign-in logs KQL: SigninLogs | where UserPrincipalName == "sipho@domain.com" | where Result != 0
+- Finding: Failure 50053 - User authentication failure, token expired
+- Credential Manager: Control Panel > Credential Manager > Found old MicrosoftOffice16 credential
+- dsregcmd /status: AzureAdJoined YES, SSO State AzureAdPr
+- OWA test: Login successful, can send/receive - Confirms mailbox healthy, issue is client only
+
+Root cause
+Stale MFA token plus cached old credentials in Windows Credential Manager after password refresh plus Outlook Work Offline mode enabled.
+
+Resolution steps
+GUI:
+- Outlook > Send/Receive > Uncheck Work Offline
+- Control Panel > Credential Manager > Remove MicrosoftOffice credentials
+- Outlook > File > Office Account > Sign out > Close Outlook
+- Re-open Outlook > Sign-in with M365 account > Complete MFA > Connected
+
+PowerShell Verification:
+```powershell
+Connect-ExchangeOnline
+Get-Mailbox -Identity sipho@domain.com | Select DisplayName, PrimarySmtpAddress
+Test-MailboxConnectivity -Identity sipho@domain.com
+Connect-MgGraph -Scopes User.Read.All
+Get-MgUser -UserId sipho@domain.com | fl DisplayName, AccountEnabled
+Verification and testing
+- Sent test email to self - Delivered
+- Received email from colleague - Appeared in Inbox
+- Sent email with attachment - Success
+- Monitored 30 minutes - No re-prompt
+
+User communication
+Hi Sipho, Issue fixed. Cleared old saved password and disabled Work Offline mode. Re-authenticated with MFA. Outlook is now Connected. Please test sending and receiving. Let me know if it asks for password again. Ticket INC001 closed.
+
+Final ticket status
+Resolved - 35 minutes - Closed 2026-11-10 14:30 SAST - No escalation needed
+
+Lessons learned
+- Check Credential Manager first for credential prompts
+- Check Entra ID Sign-in logs before password reset
+- Work Offline is common user error - Add to checklist
+- Link to AZ005: Create alert for sign-in failures
+
+*Skills Demonstrated:* Entra ID, Exchange Online, Outlook troubleshooting, MFA, PowerShell, KQL
+
+Paste this and commit.
