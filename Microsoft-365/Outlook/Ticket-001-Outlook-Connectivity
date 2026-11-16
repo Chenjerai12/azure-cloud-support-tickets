@@ -1,0 +1,6 @@
+Incident: Outlook unable to send or receive emails.
+Investigation: Internet, Work Offline, Service Health, Outlook Web and desktop configuration.
+Finding: Outlook required re-authentication.
+Resolution: Microsoft 365 sign-in and MFA completed.
+Verification: Sending and receiving emails confirmed working.
+Status: Resolved.
