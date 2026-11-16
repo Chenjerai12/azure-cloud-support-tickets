@@ -1,0 +1,109 @@
+# Ticket 002: Unable to Access Finance Shared Mailbox
+
+## 1.Incident Overview
+
+| Field | Details |
+|---|---|
+| Ticket ID | INC002 |
+| Category | Microsoft 365 / Exchange Online |
+| Application | Outlook Desktop |
+| Affected Service | Finance Shared Mailbox |
+| Shared Mailbox | finance@company.com |
+| Priority | Medium |
+| Status | Resolved |
+| Environment | Simulated IT Support Lab |
+
+### Issue Description
+
+A Finance department user reported that the Finance shared mailbox was no longer appearing in Outlook Desktop.
+
+The user's personal mailbox was working normally, and another Finance employee could access the shared mailbox. The user had previously accessed the mailbox successfully.
+
+## 2. Troubleshooting Process
+
+The investigation followed a structured troubleshooting approach to isolate the problem before making configuration changes.
+
+| Step | Investigation | Finding / Action |
+|---|---|---|
+| 1 | Established the scope of the issue | Personal mailbox worked; shared mailbox was unavailable. |
+| 2 | Checked Full Access permissions | User was not listed under the shared mailbox permissions. |
+| 3 | Confirmed authorisation | Mailbox owner approved the access request. |
+| 4 | Granted Full Access | User was added through Exchange Admin Centre. |
+| 5 | Retested Outlook Desktop | Shared mailbox was still not visible. |
+| 6 | Tested Outlook on the web | User could sign in but initially could not open the shared mailbox. |
+| 7 | Verified permissions | Full Access was correctly assigned and saved. |
+| 8 | Allowed permission propagation | After waiting, the user could access the mailbox through Outlook on the web. |
+| 9 | Investigated Outlook Desktop | Shared mailbox was not listed under additional mailboxes. |
+| 10 | Added shared mailbox manually | Shared mailbox was added to the Outlook profile. |
+| 11 | Performed final verification | User confirmed mailbox visibility, reading and sending functionality. |
+
+## 3. Root Cause
+
+The user did not have the required Full Access permission initially.
+
+After the permission was granted and propagated, the shared mailbox remained unavailable in Outlook Desktop because it was not appearing in the user's Outlook profile.
+
+Manually adding the shared mailbox restored access in Outlook Desktop.
+
+## 4. Resolution
+
+The following actions were completed in the simulated environment:
+
+- Confirmed that the user was authorised to access the shared mailbox.
+- Granted Full Access through Exchange Admin Centre.
+- Allowed time for Exchange Online permission propagation.
+- Confirmed access through Outlook on the web.
+- Added the shared mailbox manually to Outlook Desktop.
+- Tested mailbox visibility and reading functionality.
+- Verified sending functionality using the shared mailbox address.
+
+**Important:** Full Access and Send As are separate permissions. Full Access allows users to open and manage mailbox contents, while Send As permission allows them to send messages appearing directly from the shared mailbox.
+
+## 5. Final Verification
+
+The simulated user confirmed:
+
+- Shared mailbox visible in Outlook Desktop.
+- Inbox accessible.
+- Incoming messages readable.
+- Test email successfully sent using the shared mailbox address.
+- Test email successfully received.
+
+## 6. User Communication
+
+The user was informed that access to the Finance shared mailbox had been restored and that the required functionality had been tested.
+
+## 7. Technical Knowledge Applied
+
+This practical exercise covered:
+
+- Microsoft Exchange Online.
+- Exchange Admin Centre.
+- Shared mailbox administration.
+- Full Access permissions.
+- Send As permissions.
+- Outlook Desktop troubleshooting.
+- Outlook on the web troubleshooting.
+- Permission propagation.
+- Manual shared mailbox configuration.
+- Incident documentation and resolution.
+
+## 8. Lessons Learned
+
+1. Always establish whether an issue affects one user or multiple users.
+2. Verify mailbox permissions before making configuration changes.
+3. Confirm authorisation before granting mailbox access.
+4. Use Outlook on the web to help isolate Outlook Desktop issues.
+5. Allow time for Exchange Online permission changes to propagate.
+6. Distinguish between Full Access and Send As permissions.
+7. Verify the complete user experience before resolving an incident.
+
+## 9. Lab Outcome
+
+**Status: Successfully Resolved (Simulated)**
+
+This exercise demonstrated a structured approach to investigating shared mailbox access issues in Microsoft 365, using Exchange Online administration and Outlook troubleshooting.
+
+---
+
+*Disclaimer: This is a simulated IT support exercise created for practical learning and professional development. No real user accounts, mailboxes or Microsoft 365 environments were modified.*
