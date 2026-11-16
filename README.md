@@ -40,7 +40,7 @@ Rather than focusing only on theoretical knowledge, this repository demonstrates
 | Ticket | Scenario | Status |
 | :--- | :--- | :--- |
 | **INC001** | Outlook unable to send or receive emails | Completed |
-| **INC002** | User unable to access a shared mailbox | In Progress |
+| **INC002** | User unable to access a shared mailbox | Completed |
 | **INC003** | Outlook repeatedly requesting credentials | Planned |
 | **INC004** | User unable to access Microsoft 365 applications | Planned |
 | **INC005** | Outlook calendar synchronization issue | Planned |
