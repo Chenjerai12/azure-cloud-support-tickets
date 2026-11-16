@@ -1,0 +1,76 @@
+# Ticket M365-001: New Employee Unable to Access Microsoft 365
+
+**Status:** Resolved  
+**Priority:** Medium  
+**Category:** Microsoft 365 Administration | Identity and Access Management  
+**Environment:** Simulated ABC Financial Services Microsoft 365 Tenant
+
+## 1. Incident Overview
+
+A newly onboarded Finance employee, Thandi Mokoena, reported that she could not sign in to Microsoft 365 services, including Outlook and Microsoft Teams.
+
+The objective was to identify the cause of the authentication failure, restore access securely, and verify that the affected services were functioning correctly.
+
+## 2. Investigation and Troubleshooting
+
+I followed a structured troubleshooting approach:
+
+| Step | Investigation | Outcome |
+|---|---|---|
+| 1 | Checked the user under Microsoft 365 Admin Center > Active Users. | Account existed, was enabled and had an active licence. |
+| 2 | Reviewed Entra ID sign-in logs. | Identified failed sign-in attempts with error 50126. |
+| 3 | Contacted the employee to verify the username and understand the issue. | Employee confirmed that she was using the temporary credentials provided during onboarding. |
+| 4 | Checked account and password-related settings in Entra ID. | Account was enabled, not locked or expired, and required a password change at next sign-in. |
+| 5 | Coordinated a secure password reset with the authorised administrator. | New temporary credentials were issued securely. |
+| 6 | Assisted with MFA registration and verification. | Microsoft Authenticator registration was completed successfully. |
+| 7 | Verified Outlook and Teams access and reviewed sign-in activity. | Employee confirmed successful access to both services. |
+
+## 3. Root Cause
+
+The investigation identified Microsoft Entra ID sign-in error **50126 – Invalid username or password**.
+
+The evidence suggested a possible issue with the temporary password communicated during the employee onboarding process. The exact original password was not independently verified.
+
+## 4. Resolution
+
+The issue was resolved through the following actions:
+
+- Confirmed that the user account was active.
+- Verified that the appropriate Microsoft 365 licence was assigned.
+- Investigated failed authentication attempts using Entra ID sign-in logs.
+- Coordinated a secure password reset.
+- Ensured the employee completed the mandatory password change.
+- Assisted with MFA registration.
+- Confirmed successful access to Outlook and Microsoft Teams.
+
+## 5. Technical Skills Demonstrated
+
+- Microsoft 365 Admin Center navigation.
+- User account and licence administration.
+- Microsoft Entra ID sign-in log investigation.
+- Authentication troubleshooting.
+- Password reset procedures.
+- Multi-Factor Authentication (MFA).
+- Identity and access management.
+- Incident documentation and resolution.
+
+## 6. Key Learning Points
+
+This ticket reinforced the importance of following a structured troubleshooting process rather than immediately resetting passwords or changing account settings.
+
+It also highlighted the importance of:
+
+- Checking account status and licence assignment before investigating more complex issues.
+- Using sign-in logs to identify authentication failures.
+- Understanding error codes such as 50126.
+- Following secure password-reset procedures.
+- Never requesting or sharing an employee's password or MFA verification code.
+- Verifying service access before closing an incident.
+
+## 7. Outcome
+
+**Ticket successfully resolved.**
+
+The employee regained access to Microsoft 365, Outlook and Teams. The incident was documented and closed after successful verification.
+
+*Note: This is a simulated support exercise. No changes were made to a live Microsoft 365 tenant.*
