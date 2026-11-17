@@ -1,0 +1,103 @@
+# M365-003: Blocked User Account Following Suspicious Sign-in Activity
+
+## Project Overview
+**Environment:** Simulated Microsoft 365 tenant  
+**Service:** Microsoft Entra ID and Microsoft 365 Admin Center  
+**Ticket:** M365-003  
+**Priority:** High  
+**Status:** Resolved following security approval
+
+This practical lab involved investigating a Finance employee who could not access Microsoft 365 because their account had been blocked following suspicious sign-in activity.
+
+No production systems or real customer accounts were accessed.
+
+## 1. Reported Issue
+A Finance employee reported that they could no longer sign in to Microsoft 365.
+
+Initial checks showed:
+- The user account existed and was active.
+- A Microsoft 365 Business Premium licence was assigned.
+- The Exchange Online mailbox was active.
+- The account had the Block sign-in setting enabled.
+
+## 2. Investigation
+
+### Microsoft Entra ID
+Reviewed the user's account properties and discovered that sign-in had been blocked by an administrator following a security alert.
+
+The restriction was deliberately applied and was not an ordinary account configuration issue.
+
+### Sign-in Logs
+Reviewed the sign-in activity and identified:
+- Sign-in attempts from an unfamiliar location outside South Africa.
+- An unrecognised device.
+- Multiple failed authentication attempts.
+- High sign-in risk indicators.
+
+The findings were escalated to the security team.
+
+### Authentication Methods
+Further investigation identified an additional Microsoft Authenticator method registered that day.
+
+The employee confirmed that they had not registered this method.
+
+Following security-team authorisation, the unauthorised method was removed while the employee's recognised authentication methods were preserved.
+
+### Audit Logs
+Reviewed Microsoft Purview Audit records for unusual mailbox activity.
+
+The investigation found no confirmed unauthorised forwarding rules, inbox rule changes, mailbox permission changes or unauthorised sending.
+
+These findings were documented and shared with the security team without assuming that the mailbox was completely safe.
+
+## 3. Resolution
+
+The account remained blocked while the security investigation continued.
+
+After the security team completed its initial investigation and formally authorised recovery, the following actions were taken:
+
+1. Verified the employee's identity using the approved recovery process.
+2. Confirmed that the unauthorised authentication method had been removed.
+3. Confirmed that legitimate authentication methods remained available.
+4. Reset the user's password in accordance with company procedure.
+5. Removed the sign-in restriction following formal security approval.
+6. Required fresh authentication and MFA.
+
+## 4. Post-Resolution Verification
+
+The following checks were completed:
+
+| Test | Result |
+|---|---|
+| Microsoft 365 sign-in | Successful |
+| MFA authentication | Successful |
+| Outlook access | Successful |
+| Microsoft Teams access | Successful |
+| Email send and receive | Successful |
+| User confirmation | Received |
+
+The employee confirmed that access had been restored.
+
+## 5. Final Outcome
+
+**Ticket status: Resolved**
+
+The account was restored only after security approval and completion of the required recovery checks.
+
+The investigation demonstrated the importance of preserving security controls, reviewing sign-in activity, checking authentication methods and escalating suspected account compromise appropriately.
+
+## 6. Skills Demonstrated
+
+- Microsoft 365 Admin Center
+- Microsoft Entra ID user administration
+- Sign-in log investigation
+- Audit log investigation
+- Authentication methods management
+- MFA troubleshooting
+- Account recovery
+- Security incident escalation
+- Post-resolution verification
+- IT support documentation
+
+## Important Note
+This was a simulated practical training exercise. All names, accounts and investigation results were fictional. No production tenant was accessed.
