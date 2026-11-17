@@ -1,0 +1,145 @@
+# M365-002: Troubleshooting Outlook Desktop Sign-In Issues
+
+## 1. Incident Overview
+
+**Ticket ID:** M365-002  
+**Environment:** ABC Financial Services (Simulated)  
+**Service:** Microsoft 365 / Outlook  
+**Priority:** Medium  
+**Status:** Resolved  
+
+### User Details
+- User: David Ncube (simulated)
+- Department: Finance
+- Issue: Unable to sign in to Outlook desktop.
+- Other services: Outlook Web, Teams and other Microsoft 365 applications were accessible.
+
+## 2. Problem Description
+
+The user reported repeated sign-in prompts when attempting to access Outlook desktop.
+
+Initial investigation suggested a possible Microsoft 365 licensing issue because the employee was recently onboarded.
+
+## 3. Investigation and Troubleshooting
+
+### Step 1: Check the user account
+Navigated to Microsoft 365 Admin Center → Users → Active users.
+
+**Findings:**
+- User account existed.
+- Account was active.
+- Usage location was South Africa.
+- No Microsoft 365 licence was assigned.
+
+### Step 2: Assign the correct licence
+
+Confirmed that the onboarding request authorised Microsoft 365 Business Premium.
+
+Assigned the licence.
+
+**Findings:**
+- Business Premium successfully assigned.
+- Exchange Online service plan enabled.
+- Microsoft Teams service plan enabled.
+- SharePoint service plan enabled.
+
+### Step 3: Verify mailbox provisioning
+
+Checked the Exchange Online mailbox and user account.
+
+**Findings:**
+- Mailbox provisioning completed.
+- Mailbox active.
+- User sign-in successful.
+- No provisioning errors.
+
+### Step 4: Investigate Outlook desktop connectivity
+
+Confirmed that:
+- Outlook Web worked.
+- Teams desktop worked.
+- Word desktop worked.
+- Excel desktop worked.
+- Outlook desktop continued prompting for credentials.
+
+### Step 5: Review Entra ID sign-in logs
+
+Investigated the user's sign-in activity.
+
+**Findings:**
+- Application: Microsoft Office.
+- Client: Mobile apps and desktop clients.
+- Sign-in result: Failure.
+- Error code: 50126.
+- Failure description: Invalid username or password.
+- Conditional Access: Not applied.
+
+The user confirmed that their company password had recently been changed.
+
+### Step 6: Investigate saved credentials
+
+Inspected Windows Credential Manager.
+
+**Finding:**
+
+An Outlook-related saved credential was present, and its last update predated the user's password change.
+
+### Step 7: Apply corrective action
+
+Following company procedure:
+
+1. Removed only the identified stale Outlook-related credential.
+2. Reopened Outlook desktop.
+3. Asked the user to authenticate using their current company credentials.
+4. Confirmed successful authentication.
+
+## 4. Resolution and Verification
+
+Performed functional testing with the user.
+
+| Verification | Result |
+|---|---|
+| Outlook desktop opens | Successful |
+| User authentication | Successful |
+| Sending email | Successful |
+| Receiving email | Successful |
+| Mailbox synchronisation | Successful |
+| Teams access | Successful |
+
+The user confirmed that Outlook was working normally.
+
+## 5. Root Cause
+
+The investigation identified a stale Outlook-related saved credential following a company password change.
+
+The initial licensing issue was also corrected during onboarding.
+
+## 6. Technical Skills Demonstrated
+
+- Microsoft 365 Admin Center
+- User account administration
+- Microsoft 365 licence assignment
+- Exchange Online mailbox verification
+- Microsoft Entra ID sign-in log investigation
+- Windows Credential Manager
+- Outlook desktop troubleshooting
+- Incident documentation and closure
+
+## 7. Lessons Learned
+
+- Verify licensing before investigating application-specific issues.
+- Check whether the problem affects one application or multiple Microsoft 365 services.
+- Use Entra ID sign-in logs to investigate authentication failures.
+- Error code 50126 indicates invalid username or password, but further investigation is needed to establish the underlying cause.
+- Remove only relevant stale credentials rather than deleting all saved Windows credentials.
+- Always perform functional testing before closing a support ticket.
+
+## 8. Outcome
+
+**Ticket status: Resolved**
+
+Outlook desktop access was restored, and the user successfully sent and received test emails.
+
+---
+
+*This is a simulated Microsoft 365 administration lab. No real company accounts or production systems were accessed.*
