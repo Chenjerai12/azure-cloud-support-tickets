@@ -1,0 +1,214 @@
+# ENTRA-003: Employee Unable to Access Departmental Resources
+
+## 1. Ticket Overview
+
+| Field | Details |
+|---|---|
+| Ticket ID | ENTRA-003 |
+| Department | Finance |
+| Employee | Peter Chirwa (simulated) |
+| User Account | peter.chirwa@abcfinancial.co.za |
+| Priority | Medium |
+| Category | Microsoft Entra ID / Security Groups / SharePoint Permissions |
+| Status | Resolved |
+
+## 2. Issue Description
+
+Peter Chirwa contacted the IT Service Desk reporting that he could not access the Finance department's shared SharePoint resources.
+
+He reported that:
+
+- He could sign in to Microsoft 365 successfully.
+- Outlook and Teams were working.
+- He received an access-denied message when opening the Finance departmental SharePoint site.
+- Other Finance employees could access the same resource.
+
+The objective was to investigate the access issue, identify the missing permissions and restore access without granting unnecessary privileges.
+
+## 3. Investigation and Findings
+
+### Step 1: Inspect Microsoft Entra ID Account
+
+The Microsoft Entra admin centre was used to inspect Peter's account and security group memberships.
+
+Findings:
+
+| Account Setting | Result |
+|---|---|
+| Account enabled | Yes |
+| Sign-in status | Successful |
+| Department | Finance |
+| Microsoft 365 licence | Business Premium |
+| Finance Security Group | Not a member |
+| General Employees Group | Member |
+| Finance Department Group | Not a member |
+
+**Conclusion:** Peter was not a member of the Finance security group.
+
+### Step 2: Investigate SharePoint Permissions
+
+The SharePoint Admin Centre was used to inspect the Finance departmental site's permissions.
+
+**SharePoint site:** Finance Department
+
+**Site URL:** `https://abcfinancial.sharepoint.com/sites/Finance`
+
+Findings:
+
+| Group | Permission |
+|---|---|
+| Finance Owners | Full Control |
+| Finance Members | Edit |
+| Finance Visitors | Read |
+| General Employees | No access |
+
+Further investigation confirmed:
+
+- Finance Members was connected to the Entra ID Finance Security Group.
+- Peter was not a member of Finance Members.
+- Other Finance employees who could access the site belonged to this group.
+- No direct permissions had been assigned to Peter.
+
+**Conclusion:** Peter lacked membership of the group responsible for granting departmental SharePoint access.
+
+### Step 3: Confirm Access Authorisation
+
+Before changing group membership, the IT Service Desk contacted Peter's Finance manager and the SharePoint resource owner.
+
+Findings:
+
+- Peter had recently transferred into the Finance department.
+- He required access to departmental documents.
+- Edit permissions were necessary for his duties.
+- The Finance manager approved the request.
+- The SharePoint site owner confirmed the approval.
+
+**Action:** Proceeded with the approved access change.
+
+### Step 4: Update Security Group Membership
+
+The Microsoft Entra admin centre was used to update Peter's group membership.
+
+Navigation:
+
+**Identity → Groups → All groups → Finance Security Group → Members**
+
+Peter was added to the Finance Security Group.
+
+Findings:
+
+| Action | Result |
+|---|---|
+| Group membership updated | Successful |
+| Peter added to group | Successful |
+| Finance Members mapping | Confirmed |
+| Approved permission level | Edit |
+| Global Administrator role | Not assigned |
+
+**Conclusion:** Peter was successfully added to the authorised security group responsible for departmental access.
+
+### Step 5: Verify Group Membership and Access
+
+After allowing time for permission propagation, Peter's group membership and SharePoint access were tested.
+
+Findings:
+
+| Verification | Result |
+|---|---|
+| Finance Security Group membership | Successful |
+| Finance Members group mapping | Confirmed |
+| Approved permission level | Edit |
+| Permission propagation | Completed |
+| New sign-in | Successful |
+| Finance SharePoint access | Successful |
+
+Peter could now open the Finance departmental SharePoint site.
+
+### Step 6: Verify Effective Permissions
+
+The effective permissions assigned to Peter were checked to ensure that he received the correct level of access.
+
+Findings:
+
+| Verification | Result |
+|---|---|
+| Finance site access | Successful |
+| Approved Edit permission | Confirmed |
+| Open authorised document | Successful |
+| Edit authorised document | Successful |
+| Finance Owners membership | Not assigned |
+| Unauthorised administrative access | None detected |
+
+**Conclusion:** Peter had the approved Edit permissions without receiving unnecessary administrative privileges.
+
+### Step 7: Final Verification and Documentation
+
+Peter confirmed that he could access the Finance departmental SharePoint site and perform his authorised duties.
+
+The investigation findings, approval and group membership changes were documented.
+
+Final results:
+
+- Departmental access restored.
+- Correct group membership confirmed.
+- Edit permissions verified.
+- No unnecessary administrative privileges assigned.
+- Employee confirmed successful access.
+
+## 4. Root Cause
+
+Peter had recently transferred into the Finance department but had not been added to the Finance Security Group responsible for granting access to the departmental SharePoint site.
+
+As a result, he could authenticate successfully to Microsoft 365 but could not access the Finance SharePoint resources.
+
+## 5. Resolution
+
+The following actions resolved the incident:
+
+1. Inspected Peter's Microsoft Entra ID account.
+2. Reviewed his security group memberships.
+3. Investigated the Finance SharePoint site's permissions.
+4. Obtained manager and resource-owner approval.
+5. Added Peter to the authorised Finance Security Group.
+6. Verified group membership and permission propagation.
+7. Tested SharePoint access and Edit permissions.
+8. Confirmed that no unnecessary administrative privileges were assigned.
+9. Documented the investigation and resolved the ticket.
+
+## 6. Technical Skills Demonstrated
+
+- Microsoft Entra ID user administration.
+- Security group management.
+- Group membership administration.
+- SharePoint permission investigation.
+- Role-Based Access Control (RBAC).
+- Least privilege principles.
+- Access approval procedures.
+- Permission propagation and verification.
+- Microsoft 365 troubleshooting.
+- IT service desk documentation.
+
+## 7. Key Learning Points
+
+- Successful Microsoft 365 authentication does not guarantee access to every organisational resource.
+- Security groups can be used to manage access to departmental resources.
+- SharePoint permissions should be investigated before changing group memberships.
+- Access changes must be authorised by the appropriate manager or resource owner.
+- Group membership should follow the principle of least privilege.
+- Global Administrator privileges should never be used as a shortcut for ordinary resource access problems.
+- Always verify effective permissions after making access changes.
+- Document the investigation, approval, changes and final verification before closing a ticket.
+
+## 8. Final Outcome
+
+**Status: RESOLVED**
+
+Peter was successfully added to the authorised Finance Security Group after receiving management approval.
+
+His access to the Finance departmental SharePoint site was restored with the correct Edit permissions.
+
+He successfully opened and edited authorised documents and confirmed that the issue had been resolved.
+
+---
+
+**Environment:** Simulated Microsoft 365 administration lab for ABC Financial Services. No production tenant or real employee account was accessed.
