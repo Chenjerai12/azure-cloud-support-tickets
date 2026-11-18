@@ -1,0 +1,157 @@
+# M365-004: Microsoft Teams and SharePoint Access Troubleshooting
+
+## 1. Project Overview
+
+| Field | Details |
+|---|---|
+| Environment | Simulated Microsoft 365 tenant |
+| Ticket ID | M365-004 |
+| Department | Operations |
+| Priority | Medium |
+| Status | Resolved |
+| Platforms | Microsoft 365 Admin Center, SharePoint Admin Center |
+
+This practical exercise involved investigating and resolving an employee's inability to access Microsoft Teams and SharePoint despite having a functioning Microsoft 365 account.
+
+All users, accounts and investigation results were simulated. No production systems were accessed.
+
+## 2. Reported Issue
+
+An Operations employee, Michael Dube, reported that he could successfully sign in to Microsoft 365 and access Outlook but could not access Microsoft Teams or SharePoint.
+
+The reported problems were:
+
+- Microsoft Teams displayed an access error.
+- SharePoint displayed an access-denied message.
+- Outlook was functioning normally.
+
+The objective was to identify the cause of the access issues and restore the employee's authorised access.
+
+## 3. Investigation and Findings
+
+### 3.1 Microsoft 365 Admin Center
+
+The employee's account and licence configuration were reviewed.
+
+Initial findings:
+
+| Configuration | Status |
+|---|---|
+| User account | Active |
+| Microsoft 365 licence | Business Premium |
+| Exchange Online | Enabled |
+| Microsoft Teams | Disabled |
+| SharePoint Online | Disabled |
+| OneDrive | Enabled |
+
+The investigation identified that the Microsoft Teams and SharePoint Online service plans were disabled.
+
+### 3.2 Access Authorisation
+
+Before making changes, the employee's manager was contacted to confirm the required application access.
+
+The manager confirmed that:
+
+- Microsoft Teams was required for departmental collaboration.
+- SharePoint access was required for Operations departmental documents.
+- The requested access was authorised.
+
+### 3.3 Licence Configuration
+
+Following approval, the Microsoft Teams and SharePoint Online service plans were enabled under the existing Business Premium licence.
+
+The configuration was saved and sufficient time was allowed for provisioning.
+
+### 3.4 SharePoint Admin Center
+
+Although Microsoft Teams became accessible, the employee continued to experience a SharePoint access-denied error.
+
+Further investigation of the Operations SharePoint site revealed:
+
+| Investigation | Finding |
+|---|---|
+| Site status | Active |
+| Employee account | Active |
+| Site membership | Not listed |
+| Direct site permissions | None |
+
+The investigation established that the employee had a valid SharePoint service entitlement but lacked permission to access the specific Operations site.
+
+## 4. Resolution and Corrective Actions
+
+Following confirmation from the employee's manager, the following actions were performed:
+
+1. Enabled the Microsoft Teams service plan.
+2. Enabled the SharePoint Online service plan.
+3. Added Michael Dube to the Operations Members SharePoint group.
+4. Assigned the approved Edit permission level.
+5. Allowed the configuration changes to take effect.
+6. Requested that the employee test access to both applications.
+
+The employee was granted only the permissions required for the role, following the principle of least privilege.
+
+## 5. Post-Resolution Verification
+
+The employee completed the following tests:
+
+| Verification | Result |
+|---|---|
+| Microsoft 365 sign-in | Successful |
+| Outlook access | Successful |
+| Microsoft Teams access | Successful |
+| Operations SharePoint site access | Successful |
+| Departmental document access | Successful |
+| Document editing | Successful |
+| Employee confirmation | Received |
+
+All verification checks were successful.
+
+## 6. Root Cause Analysis
+
+Two configuration issues contributed to the incident:
+
+**Issue 1: Disabled service plans**
+
+Microsoft Teams and SharePoint Online were disabled under the employee's Business Premium licence.
+
+**Issue 2: Missing SharePoint site membership**
+
+The employee was not included in the Operations SharePoint Members group and therefore lacked the required site-level permissions.
+
+The investigation demonstrated that having a Microsoft 365 licence does not automatically grant access to every organisational SharePoint site.
+
+## 7. Final Outcome
+
+**Ticket Status: RESOLVED**
+
+The employee successfully accessed Microsoft Teams and the Operations SharePoint site after the authorised configuration changes.
+
+The incident was closed following successful testing and employee confirmation.
+
+## 8. Technical Skills Demonstrated
+
+- Microsoft 365 Admin Center administration
+- Microsoft 365 licence management
+- Service plan configuration
+- Microsoft Teams access troubleshooting
+- SharePoint Admin Center administration
+- SharePoint site membership management
+- SharePoint permission levels
+- Access control and least privilege
+- User acceptance testing
+- IT service desk ticket documentation
+- Root cause analysis
+
+## 9. Key Learning Outcomes
+
+This exercise reinforced three important Microsoft 365 administration concepts:
+
+1. A Microsoft 365 licence determines which services a user is entitled to access.
+2. Individual service plans can be enabled or disabled within an assigned licence.
+3. SharePoint site permissions are separate from the user's SharePoint service entitlement.
+
+It also demonstrated the importance of obtaining authorisation, investigating before making changes, verifying the outcome and maintaining accurate technical documentation.
+
+---
+
+**Disclaimer:** This is a simulated Microsoft 365 administration exercise created for practical learning and portfolio development. All names, accounts and investigation findings are fictional.
