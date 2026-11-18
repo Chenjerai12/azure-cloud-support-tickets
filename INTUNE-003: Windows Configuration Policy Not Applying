@@ -1,0 +1,223 @@
+# INTUNE-003: Windows Configuration Policy Not Applying
+
+## 1. Incident Overview
+
+| Field | Details |
+|---|---|
+| Ticket ID | INTUNE-003 |
+| Company | ABC Financial Services |
+| Employee | Thabo Ndlovu |
+| Department | Operations |
+| Device | OPS-LAP-018 |
+| Operating System | Windows 11 |
+| Priority | Medium |
+| Status | Resolved |
+| Platform | Microsoft Intune / Microsoft Entra ID |
+
+### Incident Description
+
+The IT security team deployed a Windows configuration policy requiring:
+
+- Screen-lock timeout of 10 minutes.
+- Password protection when the device resumes.
+- Windows Firewall enabled.
+
+Thabo reported that his laptop continued allowing the screen to remain unlocked beyond the expected timeout.
+
+The IT administrator confirmed that the configuration profile had been created and deployed.
+
+## 2. Investigation
+
+### Step 1: Inspect Configuration Profile Deployment
+
+**Action:** Opened Microsoft Intune Admin Center → Devices → Configuration profiles.
+
+**Profile:** `OPS-Windows-Security-Baseline`
+
+**Findings:**
+
+| Setting | Finding |
+|---|---|
+| Profile type | Windows 10 and later |
+| Assignment group | Operations-Devices |
+| Screen-lock timeout | 10 minutes |
+| Password on resume | Enabled |
+| Windows Firewall | Enabled |
+| Deployment status | Error on some devices |
+| Target device | OPS-LAP-018 |
+
+The device-specific deployment status was Not applicable.
+
+**Conclusion:** The profile existed, but its settings were not being applied to the target device.
+
+### Step 2: Verify Group Membership
+
+**Action:** Opened Microsoft Entra Admin Center → Groups → Operations-Devices → Members.
+
+**Findings:**
+- Group type: Security.
+- Assignment type: Assigned.
+- OPS-LAP-018 was not a member.
+- Other Operations devices were members.
+- Device was enabled.
+
+**Conclusion:** The device was missing from the group targeted by the configuration profile.
+
+### Step 3: Correct Group Membership
+
+**Action:** Obtained confirmation from the Operations manager and added OPS-LAP-018 to Operations-Devices.
+
+**Findings:**
+- Manager approval confirmed.
+- Device added successfully.
+- Group membership verified.
+
+**Conclusion:** The device was now included in the profile's assignment scope.
+
+### Step 4: Trigger Device Synchronisation
+
+**Action:** Initiated an Intune device sync for OPS-LAP-018.
+
+**Findings:**
+- Sync request successful.
+- Device check-in updated.
+- Configuration profile detected.
+- Assignment became applicable.
+- Deployment status was initially Pending.
+
+**Conclusion:** Intune recognised the new assignment, but successful application still needed verification.
+
+### Step 5: Inspect Per-Setting Deployment Status
+
+**Action:** Opened OPS-Windows-Security-Baseline → Device status → OPS-LAP-018.
+
+**Findings:**
+
+| Configuration Setting | Status |
+|---|---|
+| Screen-lock timeout: 10 minutes | Succeeded |
+| Password on resume | Succeeded |
+| Windows Firewall | Conflict |
+
+The conflict details identified another configuration profile called `CORP-Windows-Baseline`.
+
+**Conclusion:** The Firewall setting was being configured differently by two profiles targeting the same device.
+
+### Step 6: Investigate the Configuration Conflict
+
+**Action:** Inspected both profiles, their assignments and conflicting settings.
+
+**Profile 1: OPS-Windows-Security-Baseline**
+
+| Setting | Configuration |
+|---|---|
+| Target | Operations-Devices |
+| Windows Firewall | Enabled |
+| Screen-lock timeout | 10 minutes |
+| Password on resume | Enabled |
+
+**Profile 2: CORP-Windows-Baseline**
+
+| Setting | Configuration |
+|---|---|
+| Target | All-Corporate-Devices |
+| Windows Firewall | Disabled |
+| Screen-lock timeout | Not configured |
+| Password on resume | Not configured |
+
+Both profiles targeted OPS-LAP-018.
+
+The security team confirmed that:
+- Windows Firewall must remain enabled.
+- CORP-Windows-Baseline contained an outdated Firewall configuration.
+- The outdated configuration was authorised for correction.
+- The Operations security baseline had to remain in place.
+
+**Conclusion:** An outdated corporate configuration was causing a conflict with the Operations security baseline.
+
+### Step 7: Resolve the Configuration Conflict
+
+**Action:** Following security-team approval, corrected the outdated Windows Firewall configuration in CORP-Windows-Baseline.
+
+**Findings:**
+- Outdated Firewall setting corrected.
+- Windows Firewall configured as enabled.
+- Operations security baseline preserved.
+- Corporate baseline updated.
+- Device synchronisation successful.
+
+**Conclusion:** The conflicting configuration was corrected without removing the required security controls.
+
+## 3. Final Verification
+
+After synchronisation, the administrator inspected OPS-LAP-018 again.
+
+| Configuration Setting | Final Result |
+|---|---|
+| Screen-lock timeout | 10 minutes – Succeeded |
+| Password on resume | Enabled – Succeeded |
+| Windows Firewall | Enabled – Succeeded |
+| Configuration conflict | Resolved |
+| Employee confirmation | Confirmed |
+
+Thabo confirmed that the screen-lock behaviour now matched the organisation's requirements.
+
+## 4. Root Cause
+
+The incident involved two configuration issues:
+
+1. OPS-LAP-018 was missing from the Operations-Devices group targeted by the Operations security baseline.
+2. An outdated corporate configuration profile specified a conflicting Windows Firewall setting.
+
+Both issues had to be addressed before the configuration could be applied successfully.
+
+## 5. Resolution
+
+The issue was resolved by:
+
+1. Inspecting the configuration profile deployment status.
+2. Identifying missing device group membership.
+3. Obtaining approval and adding the device to the correct group.
+4. Synchronising the device with Intune.
+5. Investigating per-setting deployment results.
+6. Identifying the conflicting corporate configuration.
+7. Obtaining security-team approval.
+8. Correcting the outdated Firewall configuration.
+9. Synchronising the device again.
+10. Verifying all three required security settings.
+
+## 6. Technical Skills Demonstrated
+
+- Microsoft Intune configuration profiles
+- Device and group assignments
+- Microsoft Entra security groups
+- Device synchronisation
+- Configuration deployment monitoring
+- Per-setting deployment status
+- Configuration policy conflict investigation
+- Windows security configuration
+- Security-team escalation
+- Incident resolution and verification
+
+## 7. Lessons Learned
+
+- Configuration profiles must have the correct assignment scope.
+- Devices missing from an assigned group may not receive the intended policy.
+- Intune synchronisation helps devices receive updated configurations.
+- Individual settings can fail even when a profile has been assigned.
+- Multiple configuration profiles can conflict when they configure the same setting differently.
+- Administrators should establish the intended security configuration before resolving conflicts.
+- Security policies should not be disabled simply to make deployment errors disappear.
+- Always verify individual settings after remediation.
+
+## 8. Ticket Closure
+
+**Final Status:** Resolved
+
+OPS-LAP-018 successfully received the required Windows security configuration. All three settings were confirmed as successful, and Thabo verified the expected screen-lock behaviour.
+
+**Environment:** Simulated Microsoft 365 administration lab. No production tenant, real employee account or corporate device was accessed.
+
+---
+
+*This case study forms part of my Microsoft 365 Administration practical learning portfolio.*
