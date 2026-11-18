@@ -1,0 +1,173 @@
+# ENTRA-001: Employee Unable to Complete MFA Authentication
+
+## 1. Ticket Overview
+
+| Field | Details |
+|---|---|
+| Ticket ID | ENTRA-001 |
+| Department | Human Resources |
+| Employee | Jessica Moyo (simulated) |
+| User Account | jessica.moyo@abcfinancial.co.za |
+| Priority | Medium |
+| Category | Microsoft Entra ID / MFA / Conditional Access |
+| Status | Resolved |
+
+## 2. Issue Description
+
+Jessica Moyo reported that she could enter her Microsoft 365 username and password but could not complete Multi-Factor Authentication (MFA).
+
+She had recently changed phones and could no longer approve authentication requests using the Microsoft Authenticator application registered on her previous device.
+
+The objective was to restore secure access without bypassing the organisation's authentication or device compliance policies.
+
+## 3. Investigation and Findings
+
+### Step 1: Review Authentication Methods
+
+The Microsoft Entra admin centre was used to inspect Jessica's registered authentication methods.
+
+Findings:
+- Microsoft Authenticator was registered on her previous phone.
+- A mobile phone number was also registered.
+- No FIDO2 security key was registered.
+- No Temporary Access Pass was available.
+- Jessica no longer had access to her previous phone.
+
+**Action:** Confirmed which authentication methods were available before making changes.
+
+### Step 2: Verify Employee Identity
+
+Before changing authentication methods, Jessica's identity was verified using the organisation's approved identity verification process.
+
+Findings:
+- Identity verification was successful.
+- Her manager confirmed the request.
+- Her registered mobile number was still active.
+- Jessica had access to the registered phone number.
+- The organisation's policy permitted this method for her account.
+
+**Action:** Proceeded with the approved recovery process.
+
+### Step 3: Restore MFA Registration
+
+Jessica used her existing registered phone method to complete verification. She then registered Microsoft Authenticator on her new phone.
+
+Findings:
+- Verification completed successfully.
+- New Authenticator registration succeeded.
+- MFA registration was completed.
+
+**Action:** Confirmed that the new authentication method was available.
+
+### Step 4: Review Entra Sign-in Logs
+
+A new sign-in attempt was reviewed to determine whether the authentication issue had been resolved.
+
+Findings:
+- Username and password authentication succeeded.
+- MFA authentication succeeded.
+- The sign-in was still unsuccessful.
+- Conditional Access had blocked the sign-in.
+- The policy named "Require Compliant Device for Corporate Resources" was responsible.
+
+**Conclusion:** The original MFA issue was resolved. A separate device compliance issue was preventing access.
+
+### Step 5: Investigate Device Compliance
+
+The device was reviewed in Microsoft Intune.
+
+Findings:
+- Device operating system: Android.
+- Device registration: Registered.
+- Intune enrolment: Not enrolled.
+- Compliance status: Not evaluated.
+- Last check-in: Not available.
+
+The security team confirmed that Jessica could use her personally owned mobile device, provided it met the organisation's approved mobile device requirements.
+
+**Conclusion:** The device needed to be enrolled through the approved process before Conditional Access could grant access.
+
+### Step 6: Enrol Device Through Intune
+
+The approved Intune enrolment process for personally owned devices was followed.
+
+Findings:
+- Device enrolment completed successfully.
+- Device registration was confirmed.
+- Intune management became active.
+- Compliance evaluation completed.
+- Device compliance status: Compliant.
+
+The device met the required security settings, approved operating system version and device protection requirements.
+
+**Action:** Confirmed that the device satisfied the applicable compliance policy.
+
+### Step 7: Final Access Verification
+
+Jessica was asked to sign in again and test the required Microsoft 365 services.
+
+Final results:
+
+| Verification | Result |
+|---|---|
+| Username and password | Successful |
+| Authenticator MFA | Successful |
+| Intune device compliance | Compliant |
+| Conditional Access | Granted |
+| Outlook access | Successful |
+| Teams access | Successful |
+| Employee confirmation | Confirmed |
+
+The Entra sign-in logs confirmed that authentication succeeded and Conditional Access granted access.
+
+## 4. Root Cause
+
+The incident involved two separate issues:
+
+1. **MFA registration issue:** Jessica's Authenticator registration was associated with her previous phone, which was no longer available.
+2. **Device compliance issue:** After MFA was restored, Conditional Access blocked access because her personal device was not enrolled and compliant in Intune.
+
+## 5. Resolution
+
+The following actions resolved the incident:
+
+1. Verified Jessica's identity using the approved process.
+2. Confirmed her registered phone number.
+3. Registered Microsoft Authenticator on her new phone.
+4. Reviewed Entra sign-in logs.
+5. Identified the Conditional Access device compliance restriction.
+6. Enrolled the device through the approved Intune process.
+7. Confirmed device compliance.
+8. Tested MFA, Outlook and Teams access.
+
+## 6. Technical Skills Demonstrated
+
+- Microsoft Entra ID user administration.
+- Authentication methods and MFA registration.
+- Identity verification and account recovery procedures.
+- Entra ID sign-in log investigation.
+- Conditional Access policy troubleshooting.
+- Microsoft Intune device enrolment.
+- Device compliance evaluation.
+- Microsoft 365 access verification.
+
+## 7. Key Learning Points
+
+- MFA problems should be investigated before authentication methods are changed.
+- Identity verification must take place before resetting or replacing authentication methods.
+- Successful MFA does not guarantee that a sign-in will be granted.
+- Conditional Access can block access even when the username, password and MFA are correct.
+- Intune device compliance can be a requirement for accessing corporate resources.
+- A ticket should only be closed after the user has successfully tested the affected services.
+
+## 8. Final Outcome
+
+**Status: RESOLVED**
+
+Jessica successfully registered Microsoft Authenticator on her new phone, enrolled her device through the approved Intune process and regained access to Outlook and Teams.
+
+The investigation resolved both the MFA registration issue and the separate Conditional Access device compliance restriction.
+
+---
+
+**Environment:** Simulated Microsoft 365 administration lab for ABC Financial Services. No production tenant or real employee account was accessed.
