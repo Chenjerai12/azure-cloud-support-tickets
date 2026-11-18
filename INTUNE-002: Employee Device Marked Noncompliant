@@ -1,0 +1,209 @@
+# INTUNE-002: Employee Device Marked Noncompliant in Microsoft Intune
+
+## 1. Incident Overview
+
+| Field | Details |
+|---|---|
+| Ticket ID | INTUNE-002 |
+| Company | ABC Financial Services |
+| Employee | Linda Moyo |
+| Department | Finance |
+| Device | FIN-LAP-031 |
+| Operating System | Windows 11 Pro |
+| Priority | High |
+| Status | Resolved |
+| Platform | Microsoft Intune / Microsoft Entra ID |
+
+### Incident Description
+
+Linda reported that she could sign in to Microsoft 365 but could not access certain corporate resources.
+
+The error displayed:
+
+> Your device does not meet your organisation's security requirements.
+
+The IT Service Desk confirmed that the laptop was enrolled in Microsoft Intune.
+
+## 2. Investigation
+
+### Step 1: Inspect Device Compliance
+
+**Action:** Opened Microsoft Intune Admin Center → Devices → All devices and located FIN-LAP-031.
+
+**Findings:**
+- Device was enrolled and managed.
+- Primary user was Linda Moyo.
+- Operating system was Windows 11.
+- Device ownership was Corporate.
+- Compliance status was Noncompliant.
+- Last device check-in was successful.
+
+**Conclusion:** The device was enrolled in Intune but was failing compliance evaluation.
+
+### Step 2: Identify the Failed Compliance Requirement
+
+**Action:** Inspected the device's compliance status details.
+
+**Findings:**
+
+| Compliance Requirement | Result |
+|---|---|
+| Antivirus | Compliant |
+| Firewall | Compliant |
+| Secure Boot | Compliant |
+| BitLocker encryption | Failed |
+| Minimum OS version | Compliant |
+| Password requirement | Compliant |
+
+The applicable compliance policy was `FIN-Windows-Compliance-Policy`.
+
+**Conclusion:** Missing BitLocker encryption was causing the device to fail its compliance policy.
+
+### Step 3: Investigate BitLocker Status
+
+**Action:** Inspected device encryption information and hardware readiness.
+
+**Findings:**
+- BitLocker status: Not encrypted.
+- Encryption method: Not configured.
+- Recovery key: Not present in Microsoft Entra ID.
+- TPM: Present and ready.
+- Windows edition: Windows 11 Pro.
+- Last device check-in: Successful.
+
+**Conclusion:** The device supported BitLocker, but encryption had not been configured.
+
+### Step 4: Deploy BitLocker Through the Approved Process
+
+**Action:** Obtained approval from IT security and followed the organisation's BitLocker deployment procedure.
+
+**Findings:**
+- Deployment approval granted.
+- BitLocker configuration applied.
+- Device encryption enabled.
+- Recovery key successfully backed up.
+- Recovery-key record available in Microsoft Entra ID.
+- Encryption verification successful.
+
+**Conclusion:** BitLocker was successfully enabled and the recovery key was backed up.
+
+### Step 5: Synchronise the Device
+
+**Action:** Initiated an Intune device synchronisation to refresh the device's compliance evaluation.
+
+**Findings:**
+- Sync request successful.
+- Device check-in updated.
+- BitLocker status enabled.
+- Recovery key escrowed.
+- Compliance evaluation completed.
+- Device status changed to Compliant.
+
+**Conclusion:** The device now satisfied the configured compliance requirements.
+
+### Step 6: Investigate Conditional Access
+
+Although the device became compliant, Linda continued experiencing access problems.
+
+**Action:** Opened Microsoft Entra Admin Center → Monitoring & health → Sign-in logs.
+
+Inspected Linda's latest failed sign-in.
+
+**Findings:**
+- User authentication: Successful.
+- MFA: Successful.
+- Device identity: Recognised.
+- Intune compliance: Compliant.
+- Conditional Access policy: `FIN-Require-Approved-Location`.
+- Policy result: Failure.
+- Failure detail: Sign-in originated outside approved network locations.
+
+**Conclusion:** The original device compliance issue was resolved, but a separate Conditional Access requirement was blocking access.
+
+### Step 7: Resolve the Conditional Access Issue
+
+**Action:** Contacted Linda and the network administrator to verify her remote access method.
+
+**Findings:**
+- Linda was working remotely.
+- Corporate VPN was the approved remote access method.
+- VPN connection was disconnected.
+- Approved network location was confirmed.
+- Linda connected successfully to the corporate VPN.
+- New sign-in was successful.
+- Conditional Access granted access.
+
+**Conclusion:** Linda needed to connect through the approved corporate VPN to satisfy the network-location requirement.
+
+## 3. Final Verification
+
+After reconnecting through the approved corporate VPN, Linda successfully accessed Microsoft 365.
+
+| Verification | Result |
+|---|---|
+| Microsoft 365 authentication | Successful |
+| MFA | Successful |
+| Device compliance | Compliant |
+| Conditional Access | Granted |
+| Outlook access | Successful |
+| Teams access | Successful |
+| Employee confirmation | Confirmed |
+
+## 4. Root Cause
+
+The incident involved two separate problems:
+
+1. FIN-LAP-031 did not have BitLocker encryption enabled, causing it to fail the Intune compliance policy.
+2. Linda was working remotely without connecting through the organisation's approved corporate VPN, causing the Conditional Access network-location requirement to fail.
+
+Both issues had to be resolved before access could be restored.
+
+## 5. Resolution
+
+The issue was resolved by:
+
+1. Inspecting the device's compliance status.
+2. Identifying BitLocker encryption as the failed requirement.
+3. Investigating device encryption and hardware readiness.
+4. Deploying BitLocker through the approved security process.
+5. Backing up and verifying the recovery key.
+6. Synchronising the device with Intune.
+7. Confirming that the device became compliant.
+8. Investigating the remaining Conditional Access failure.
+9. Connecting Linda through the approved corporate VPN.
+10. Verifying successful Microsoft 365 access.
+
+## 6. Technical Skills Demonstrated
+
+- Microsoft Intune device management
+- Device compliance policies
+- BitLocker encryption
+- Recovery-key management
+- Microsoft Entra ID integration
+- Device synchronisation
+- Microsoft Entra sign-in logs
+- Conditional Access policies
+- Remote access troubleshooting
+- Incident investigation and resolution
+
+## 7. Lessons Learned
+
+- Device enrolment does not automatically mean a device is compliant.
+- Compliance policies evaluate devices against organisational security requirements.
+- BitLocker encryption protects data stored on Windows devices.
+- Recovery-key backup is an important part of BitLocker deployment.
+- Intune synchronisation allows updated device information and compliance results to be reported.
+- Conditional Access evaluates access requirements separately from Intune compliance.
+- Administrators should investigate individual policy failures instead of disabling security controls globally.
+
+## 8. Ticket Closure
+
+**Final Status:** Resolved
+
+FIN-LAP-031 was successfully encrypted, synchronised and evaluated as compliant. Linda connected through the approved corporate VPN and regained access to Outlook and Teams.
+
+**Environment:** Simulated Microsoft 365 administration lab. No production tenant, real employee account or corporate device was accessed.
+
+---
+
+*This case study forms part of my Microsoft 365 Administration practical learning portfolio.*
