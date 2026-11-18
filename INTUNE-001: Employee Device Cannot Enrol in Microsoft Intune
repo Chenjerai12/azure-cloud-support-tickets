@@ -1,0 +1,192 @@
+# INTUNE-001: Windows Device Cannot Enrol in Microsoft Intune
+
+## 1. Incident Overview
+
+| Field | Details |
+|---|---|
+| Ticket ID | INTUNE-001 |
+| Department | Finance |
+| Employee | James Dube |
+| Device | FIN-LAP-024 |
+| Operating System | Windows 11 |
+| Priority | Medium |
+| Status | Resolved |
+| Platform | Microsoft Intune / Microsoft Entra ID |
+
+### Incident Description
+
+An employee reported that their Windows 11 laptop could not enrol in Microsoft Intune.
+
+The error displayed:
+
+> This device cannot be enrolled because of an organisation restriction.
+
+The employee required Intune enrolment to access corporate resources.
+
+## 2. Investigation
+
+### Step 1: Check Microsoft Entra ID Registration
+
+**Action:** Inspected the device in Microsoft Entra ID and checked its Intune management status.
+
+**Findings:**
+- Device existed in Microsoft Entra ID.
+- Device was Microsoft Entra registered, not Entra joined.
+- Device owner was James Dube.
+- Device was enabled.
+- Device was not listed in Intune.
+- Compliance status had not been evaluated.
+
+**Conclusion:** The device had an identity record but was not enrolled in Intune.
+
+### Step 2: Check Licensing Eligibility
+
+**Action:** Inspected James's Microsoft 365 licence and available service plans.
+
+**Findings:**
+- Assigned licence: Microsoft 365 Business Standard.
+- Microsoft Intune Plan 1 was not included.
+- Intune service plan was unavailable.
+
+**Conclusion:** The current licence did not provide the required Intune entitlement.
+
+### Step 3: Obtain Licensing Approval
+
+**Action:** Checked the organisation's licensing policy and obtained approval from the employee's manager and IT licensing administrator.
+
+**Findings:**
+- Business Premium was approved for James's role.
+- A licence was available.
+- Assignment was authorised.
+
+**Conclusion:** The required licence could be assigned.
+
+### Step 4: Assign Microsoft 365 Business Premium
+
+**Action:** Assigned Microsoft 365 Business Premium and verified the service plans.
+
+**Findings:**
+- Business Premium assigned successfully.
+- Microsoft Intune Plan 1 enabled.
+- Exchange Online enabled.
+- Microsoft Teams enabled.
+- SharePoint Online enabled.
+- Licence provisioning successful.
+
+**Conclusion:** James now had an eligible Intune licence.
+
+### Step 5: Investigate Intune Enrolment Restrictions
+
+**Action:** Inspected Microsoft Intune Admin Center → Devices → Enrollment → Enrollment restrictions.
+
+**Findings:**
+- Windows enrolment was allowed.
+- Maximum devices per user: 5.
+- James had 2 existing enrolled devices.
+- Personally owned Windows devices were blocked.
+- Corporate-owned Windows devices were allowed.
+
+Additional device information showed that FIN-LAP-024 was classified as personally owned.
+
+**Conclusion:** The device's ownership classification conflicted with the organisation's enrolment policy.
+
+### Step 6: Verify Device Ownership
+
+**Action:** Contacted IT Asset Management to verify the laptop's ownership.
+
+**Findings:**
+- FIN-LAP-024 appeared in the company asset register.
+- Assigned employee was James Dube.
+- Ownership was confirmed as company-owned.
+- Asset tag and serial number matched the asset register.
+- Intune incorrectly classified the device as personally owned.
+
+IT Asset Management authorised the correction.
+
+**Conclusion:** The device ownership classification needed to be corrected.
+
+### Step 7: Correct Ownership and Enrol the Device
+
+**Action:** Used the approved process to correct the device ownership classification and retry enrolment.
+
+**Findings:**
+- Ownership corrected to Corporate.
+- Enrolment restriction permitted corporate Windows devices.
+- Intune enrolment completed successfully.
+- Device appeared in Intune.
+- Primary user was James Dube.
+- Management status became Managed.
+- Compliance evaluation was initially pending.
+
+**Conclusion:** The device successfully enrolled in Intune.
+
+## 3. Final Verification
+
+The initial compliance evaluation completed.
+
+| Verification | Result |
+|---|---|
+| Device synchronisation | Successful |
+| Compliance evaluation | Compliant |
+| Device ownership | Corporate |
+| Primary user | James Dube |
+| Intune management | Active |
+| Corporate resource access | Successful |
+| Employee confirmation | Confirmed |
+
+## 4. Root Cause
+
+The incident involved two separate issues:
+
+1. James's Microsoft 365 Business Standard licence did not include Intune.
+2. FIN-LAP-024 was incorrectly classified as personally owned, while the organisation's enrolment policy blocked personally owned Windows devices.
+
+Both issues had to be resolved before successful enrolment.
+
+## 5. Resolution
+
+The issue was resolved by:
+
+1. Obtaining approval for an eligible Microsoft 365 licence.
+2. Assigning Microsoft 365 Business Premium.
+3. Verifying that Intune Plan 1 was enabled.
+4. Investigating the organisation's enrolment restrictions.
+5. Confirming corporate ownership through IT Asset Management.
+6. Correcting the device ownership classification.
+7. Successfully enrolling the laptop in Intune.
+8. Confirming device compliance and corporate resource access.
+
+## 6. Technical Skills Demonstrated
+
+- Microsoft 365 Admin Center
+- Microsoft Entra ID device registration
+- Microsoft Intune Admin Center
+- Microsoft 365 licensing and service plans
+- Intune enrolment restrictions
+- Corporate and personal device ownership
+- Device compliance evaluation
+- IT asset verification
+- Troubleshooting and incident resolution
+- Least-privilege administration
+
+## 7. Lessons Learned
+
+- Entra ID registration does not automatically mean a device is managed by Intune.
+- Users require an eligible licence for Intune enrolment.
+- Enrolment restrictions determine which devices can be enrolled.
+- Device ownership classifications must reflect verified asset information.
+- Administrators should not disable organisation-wide security restrictions to resolve an individual device issue.
+- Successful enrolment does not automatically mean a device is compliant.
+- Final verification should confirm both management and compliance status.
+
+## 8. Ticket Closure
+
+**Final Status:** Resolved
+
+The laptop was successfully enrolled, evaluated as compliant and confirmed able to access approved corporate resources.
+
+**Environment:** Simulated Microsoft 365 administration lab. No production tenant, real employee account or corporate device was accessed.
+
+---
+
+*This case study forms part of my Microsoft 365 Administration practical learning portfolio.*
