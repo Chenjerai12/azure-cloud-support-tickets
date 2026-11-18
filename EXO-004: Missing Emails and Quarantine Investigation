@@ -1,0 +1,123 @@
+# EXO-004: Missing Emails and Quarantine Investigation
+
+## Project Information
+
+- **Ticket ID:** EXO-004
+- **Module:** Exchange Online and Microsoft Defender
+- **Category:** Email Security and Troubleshooting
+- **Priority:** Medium
+- **Status:** Resolved
+- **Environment:** Simulated Microsoft 365 environment
+
+## 1. Incident Summary
+
+An employee in Finance reported that expected emails from external clients were missing from her Inbox.
+
+The senders confirmed that their messages had been sent successfully.
+
+The investigation focused on Exchange Online message trace, Microsoft Defender quarantine, and email protection policies.
+
+## 2. Message Trace Investigation
+
+Used Exchange Admin Center message trace to investigate the missing messages.
+
+Findings:
+
+| Message | Status |
+|---|---|
+| MSG-001 | Quarantined |
+| MSG-002 | Quarantined |
+| MSG-003 | Delivered |
+
+The first two messages were quarantined by Microsoft 365 filtering.
+
+## 3. Microsoft Defender Quarantine Investigation
+
+Inspected the quarantined messages.
+
+Findings:
+
+- MSG-001 was classified as spam.
+- MSG-002 was classified as phishing.
+- MSG-001 came from a recognised client.
+- MSG-002 contained a suspicious link and an unfamiliar sender.
+
+The messages were assessed separately rather than releasing both.
+
+## 4. Security Escalation
+
+Escalated the suspicious phishing message to the security team.
+
+The security team confirmed:
+
+- MSG-001 was legitimate.
+- MSG-002 was potentially malicious.
+- MSG-001 could be released.
+- MSG-002 had to remain quarantined.
+
+## 5. Legitimate Email Release
+
+Released MSG-001 following security approval.
+
+Verified that:
+
+- The message was successfully delivered.
+- Sarah could access it in Outlook.
+- MSG-002 remained quarantined.
+
+## 6. Anti-Spam and Anti-Phishing Policy Investigation
+
+Reviewed the applicable Microsoft Defender policies.
+
+Findings:
+
+- Inbound anti-spam policy active.
+- Anti-phishing policy enabled.
+- Impersonation protection enabled.
+- Quarantine policy active.
+- Strict bulk email filtering.
+
+Further investigation identified a sender-domain reputation issue affecting legitimate client communications.
+
+## 7. Targeted Remediation
+
+The security team independently validated the legitimate sender.
+
+A narrowly scoped remediation was approved through the organisation's controlled mail-security process.
+
+Organisation-wide spam and phishing protections remained enabled.
+
+## 8. Final Verification
+
+Confirmed:
+
+- Legitimate client emails were delivered.
+- Sarah could access the expected messages.
+- The phishing message remained quarantined.
+- Anti-spam protection remained enabled.
+- Anti-phishing protection remained enabled.
+- Sarah confirmed successful email delivery.
+
+## 9. Final Resolution
+
+The email delivery issue was resolved through targeted remediation.
+
+The organisation's email security controls remained operational, and the suspicious phishing message was not released.
+
+**Ticket status: Resolved.**
+
+## 10. Skills Demonstrated
+
+- Exchange Online message trace.
+- Microsoft Defender quarantine.
+- Spam and phishing investigation.
+- Anti-spam policy administration.
+- Anti-phishing policy administration.
+- Email security incident escalation.
+- Targeted remediation.
+- Email delivery verification.
+- Incident documentation.
+
+## Environment Disclaimer
+
+This is a simulated Microsoft 365 administration training exercise. No production tenant, real employee account, or customer information was accessed.
