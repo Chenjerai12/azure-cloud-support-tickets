@@ -1,0 +1,86 @@
+# AZ-001 – Azure Virtual Machine Cannot Start
+
+**Incident ID:** AZ-001  
+**Organisation:** Contoso Financial Services  
+**Affected resource:** APP-SRV-01  
+**Resource group:** RG-PRODUCTION  
+**Service:** Financial Reporting System  
+**Priority:** P2  
+**Status:** Resolved  
+**Platform:** Microsoft Azure
+
+## 1. Incident description
+
+The Finance department reported that users could not access the Financial Reporting application.
+
+Initial investigation established that the Azure virtual machine APP-SRV-01 was in a Stopped (deallocated) state.
+
+## 2. Investigation performed
+
+The Azure Activity Log revealed that Azure Automation had initiated a successful VM deallocation operation at 17:30.
+
+Further investigation identified the runbook:
+
+`Stop-NonProduction-VMs`
+
+The runbook was retrieving all virtual machines in the subscription without filtering for production and non-production environments.
+
+The affected VM had the following tags:
+
+| Tag | Value |
+|---|---|
+| Environment | Production |
+| Application | Financial Reporting |
+| Criticality | High |
+| Owner | Finance IT |
+
+## 3. Root cause
+
+An incorrectly configured Azure Automation runbook was responsible for stopping production virtual machines.
+
+The runbook lacked appropriate resource filtering and production environment exclusions.
+
+## 4. Corrective actions
+
+1. Escalated the production-impacting incident.
+2. Investigated the Automation Account and runbook execution history.
+3. Identified the incorrect VM selection logic.
+4. Obtained approval for the corrective change.
+5. Updated the runbook to select only VMs tagged `Environment = NonProduction`.
+6. Tested the corrected selection logic in a non-production environment.
+7. Obtained production deployment approval.
+8. Deployed the corrected runbook.
+9. Restarted APP-SRV-01.
+10. Verified application availability.
+
+## 5. Validation results
+
+| Validation | Result |
+|---|---|
+| Production VM exclusions | Passed |
+| Non-production selection | Passed |
+| Runbook execution | Passed |
+| VM operational status | Running |
+| OS health check | Passed |
+| Application connectivity | Passed |
+| Finance user confirmation | Received |
+
+## 6. Preventive recommendations
+
+- Introduce environment-based resource tagging standards.
+- Implement production resource exclusions in automation.
+- Apply least-privilege permissions to automation identities.
+- Review automation schedules regularly.
+- Implement Azure Monitor alerts for unexpected VM deallocation.
+- Introduce change approval requirements for production automation.
+- Maintain runbook execution logs and audit trails.
+
+## 7. Final resolution
+
+The corrected automation runbook was deployed successfully. APP-SRV-01 was restarted and the Financial Reporting application was restored.
+
+The Finance department confirmed that users could access the application.
+
+**Final status: RESOLVED**
+
+**Skills demonstrated:** Azure Activity Logs, Azure Automation, PowerShell, resource tagging, VM lifecycle management, change management, incident resolution and service validation.
