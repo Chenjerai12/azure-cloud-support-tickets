@@ -1,0 +1,146 @@
+# AZ-003: Create a New Azure Virtual Machine
+
+## Project Overview
+
+This project documents a simulated enterprise Azure infrastructure deployment for Contoso Financial Services.
+
+The objective was to plan a secure production Windows Server virtual machine for the company's internal Finance reporting application.
+
+**Ticket ID:** AZ-003  
+**Category:** Azure Virtual Machines  
+**Environment:** Production  
+**Region:** South Africa North  
+**Status:** Simulated investigation completed
+
+## 1. Business Requirements
+
+The Infrastructure Manager requested a new virtual machine with the following specifications:
+
+| Configuration | Requirement |
+|---|---|
+| VM name | FIN-APP-03 |
+| Resource group | RG-PRODUCTION |
+| Region | South Africa North |
+| Operating system | Windows Server |
+| vCPUs | 4 |
+| Memory | 16 GB |
+| OS disk | 128 GB Premium SSD |
+| Data disk | 256 GB Premium SSD |
+| Environment | Production |
+
+## 2. Infrastructure Assessment
+
+Before deployment, I reviewed the existing infrastructure and confirmed the following simulated configuration:
+
+- Existing resource group: RG-PRODUCTION
+- Virtual network: VNET-PROD-01
+- Application subnet: SN-APP
+- Subnet address range: 10.10.2.0/24
+- Available IP addresses: 35
+- Network Security Group: NSG-PROD-APP
+- Regional VM capacity: Available
+
+## 3. VM Sizing
+
+I consulted the Finance application owner to establish the workload requirements.
+
+The selected VM configuration was based on:
+
+- CPU requirements.
+- Memory requirements.
+- Application workload.
+- Regional availability.
+- Cost considerations.
+
+The proposed VM must provide at least 4 vCPUs and 16 GB RAM.
+
+## 4. Network Configuration
+
+The VM was planned for deployment into the existing production network.
+
+Security configuration:
+
+- Attach the network interface to VNET-PROD-01.
+- Use subnet SN-APP.
+- Apply NSG-PROD-APP.
+- Use private IP connectivity.
+- Do not assign a public IP address.
+- Restrict administrative access to approved management channels.
+
+## 5. Storage Configuration
+
+The proposed storage configuration consists of:
+
+| Disk | Size | Type |
+|---|---:|---|
+| OS disk | 128 GB | Premium SSD Managed Disk |
+| Data disk | 256 GB | Premium SSD Managed Disk |
+
+Encryption at rest must be enabled.
+
+Separating operating system and application data storage supports easier management and recovery.
+
+## 6. Security Configuration
+
+The security controls identified include:
+
+- Azure RBAC for authorised administrative access.
+- Least-privilege access.
+- Azure Bastion or another approved secure management solution.
+- NSG restrictions.
+- No unrestricted internet-facing RDP access.
+- Administrative activity logging.
+
+## 7. Backup and Monitoring
+
+The production VM requires:
+
+**Backup**
+- Configure Azure Backup.
+- Establish an approved backup policy.
+- Verify backup configuration and recovery readiness.
+
+**Monitoring**
+- Configure Azure Monitor.
+- Monitor CPU, memory and disk performance.
+- Configure appropriate availability and performance alerts.
+- Enable diagnostic logging.
+
+## 8. Deployment Validation Checklist
+
+- [ ] Confirm VM specifications.
+- [ ] Confirm resource group and region.
+- [ ] Verify virtual network and subnet.
+- [ ] Confirm NSG configuration.
+- [ ] Verify private network connectivity.
+- [ ] Confirm managed disk configuration.
+- [ ] Verify encryption settings.
+- [ ] Confirm administrative access restrictions.
+- [ ] Configure Azure Backup.
+- [ ] Configure Azure Monitor and alerts.
+- [ ] Validate Windows Server startup.
+- [ ] Test Finance application connectivity.
+- [ ] Obtain application owner sign-off.
+
+## 9. Key Azure Skills Demonstrated
+
+- Azure Virtual Machines
+- Resource Groups
+- Virtual Networks
+- Subnets
+- Network Security Groups
+- Virtual Machine Sizing
+- Managed Disks
+- Azure RBAC
+- Azure Bastion
+- Azure Backup
+- Azure Monitor
+- Production Infrastructure Planning
+
+## 10. Final Outcome
+
+The simulated investigation produced a proposed production VM configuration aligned with the company's stated infrastructure, security, networking and storage requirements.
+
+**Final Status:** SIMULATED INVESTIGATION COMPLETED
+
+**Important:** This exercise was conducted as a simulated Azure administration support ticket. No actual Azure resources were deployed or modified.
