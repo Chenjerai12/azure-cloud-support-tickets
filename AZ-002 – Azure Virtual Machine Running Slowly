@@ -1,0 +1,78 @@
+# AZ-002 – Azure Virtual Machine Running Slowly
+
+**Incident ID:** AZ-002  
+**Organisation:** Contoso Financial Services  
+**Affected resource:** APP-SRV-02  
+**Application:** Financial Reporting System  
+**Database:** FinanceDB  
+**Priority:** P2  
+**Status:** Resolved
+
+## 1. Incident description
+
+The Finance department reported that the Financial Reporting application was responding unusually slowly.
+
+Initial monitoring showed CPU utilisation of approximately 95%, while memory utilisation was 72% and disk utilisation was 45%.
+
+## 2. Investigation
+
+Azure Monitor was used to investigate infrastructure performance.
+
+Windows Task Manager identified ReportingEngine.exe as the main CPU-consuming process, accounting for approximately 78% CPU utilisation.
+
+Application logs revealed that a financial reporting job was taking significantly longer than its normal execution time.
+
+Further investigation by the database administrator identified SQL blocking involving a long-running financial reconciliation transaction.
+
+## 3. Root cause
+
+A long-running financial reconciliation transaction was holding database locks required by the Financial Reporting application.
+
+This caused the reporting query to wait, increasing processing time and contributing to high CPU utilisation on APP-SRV-02.
+
+## 4. Corrective actions
+
+1. Investigated Azure Monitor performance metrics.
+2. Identified the CPU-intensive application process.
+3. Reviewed application execution logs.
+4. Escalated the database performance issue to the DBA.
+5. Identified the blocking SQL transaction.
+6. Obtained approval from the DBA and Finance application owner.
+7. Resolved the blocking transaction.
+8. Monitored application and VM performance following the intervention.
+
+## 5. Post-resolution validation
+
+| Metric | Before | After |
+|---|---:|---:|
+| CPU utilisation | 95% | 38% |
+| Memory utilisation | 72% | 70% |
+| SQL blocking sessions | 3 | 0 |
+| Reporting query duration | 38 min | 7 min |
+
+Additional validation:
+- VM operational status: Passed.
+- Application connectivity: Passed.
+- Financial report generation: Passed.
+- Finance user confirmation: Received.
+
+## 6. Preventive recommendations
+
+- Optimise inefficient SQL queries.
+- Improve database transaction management.
+- Configure Azure Monitor CPU alerts.
+- Establish application performance monitoring.
+- Review recurring reporting workloads.
+- Maintain coordination between infrastructure and database teams.
+
+## 7. Final resolution
+
+The SQL blocking issue was resolved by the DBA following business approval.
+
+CPU utilisation returned to normal operating levels and the Financial Reporting application was restored.
+
+Finance users confirmed successful application access.
+
+**Final status: RESOLVED**
+
+**Skills demonstrated:** Azure Monitor, Windows Server troubleshooting, Task Manager, SQL blocking investigation, incident escalation, performance monitoring and post-resolution validation.
