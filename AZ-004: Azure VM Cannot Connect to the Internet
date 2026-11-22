@@ -1,0 +1,145 @@
+# AZ-004: Azure VM Cannot Connect to the Internet
+
+## Project Overview
+
+This project documents a simulated enterprise Azure networking support incident involving a production Windows Server virtual machine that could not access external websites or download Windows updates.
+
+**Ticket ID:** AZ-004  
+**Company:** Contoso Financial Services  
+**Category:** Azure Networking  
+**Priority:** High  
+**Affected VM:** APP-SRV-04  
+**Resource Group:** RG-PRODUCTION  
+**Region:** South Africa North  
+**Status:** RESOLVED (SIMULATED)
+
+## 1. Incident Description
+
+The Infrastructure Support team received a report that APP-SRV-04 could access internal Finance resources but could not access external websites.
+
+Initial investigation confirmed:
+
+- VM power state: Running.
+- CPU utilisation: 24%.
+- Memory utilisation: 58%.
+- Private IP address: 10.10.2.15.
+- Internal application connectivity: Working.
+- External internet connectivity: Failing.
+
+## 2. Initial Network Investigation
+
+The following infrastructure components were examined:
+
+| Component | Configuration |
+|---|---|
+| Virtual network | VNET-PROD-01 |
+| Subnet | SN-APP |
+| NSG | NSG-PROD-APP |
+| Private IP | 10.10.2.15 |
+| Public IP | None |
+
+The investigation identified that the subnet had no NAT Gateway and no other approved outbound connectivity service.
+
+## 3. Root Cause Analysis
+
+Two network configuration issues were identified.
+
+**Issue 1: Missing outbound connectivity**
+
+The subnet had no configured NAT Gateway or approved alternative outbound internet connectivity mechanism.
+
+**Issue 2: DNS traffic blocked**
+
+After the NAT Gateway was implemented, DNS resolution continued to fail.
+
+The NSG was blocking outbound DNS traffic to the approved corporate DNS server at 10.10.1.10.
+
+This prevented the VM from resolving external website hostnames.
+
+## 4. Corrective Actions
+
+The following corrective actions were completed in the simulation:
+
+1. Obtained approval for the proposed network changes.
+2. Implemented NAT-PROD-01.
+3. Associated the NAT Gateway with subnet SN-APP.
+4. Allocated the approved static outbound public IP.
+5. Investigated DNS resolution failures.
+6. Identified restrictive NSG DNS rules.
+7. Corrected the specific DNS permissions to allow UDP and TCP port 53 to the approved DNS server.
+8. Preserved existing network security restrictions.
+
+## 5. Technical Validation
+
+The following PowerShell commands were used in the simulated investigation.
+
+**Test external connectivity**
+
+```powershell
+Test-NetConnection 8.8.8.8 -Port 443
+```
+
+**Test DNS resolution**
+
+```powershell
+Resolve-DnsName www.microsoft.com
+```
+
+**Test HTTPS connectivity**
+
+```powershell
+Test-NetConnection www.microsoft.com -Port 443
+```
+
+Final simulated results:
+
+| Test | Result |
+|---|---|
+| External IP connectivity | Successful |
+| DNS resolution | Successful |
+| HTTPS connectivity | Successful |
+| Internal Finance application | Successful |
+| NAT Gateway | Operational |
+
+## 6. Security Considerations
+
+The following security controls were maintained:
+
+- No direct public IP assigned to the VM.
+- Controlled outbound connectivity through NAT Gateway.
+- NSG restrictions retained.
+- DNS access restricted to the approved corporate DNS server.
+- Changes implemented through the approved change-management process.
+
+## 7. Preventive Recommendations
+
+- Monitor outbound connectivity using Azure Monitor.
+- Review NSG rules regularly.
+- Monitor DNS server availability.
+- Document approved network architecture.
+- Establish change-management controls for network configuration changes.
+- Alert administrators to connectivity failures.
+
+## 8. Key Azure Skills Demonstrated
+
+- Azure Virtual Networks
+- Subnets
+- Network Security Groups
+- Azure NAT Gateway
+- Outbound Connectivity
+- DNS Troubleshooting
+- PowerShell Networking Commands
+- Network Security
+- Incident Management
+- Root Cause Analysis
+- Change Management
+
+## 9. Final Outcome
+
+The simulated incident was resolved after implementing controlled outbound connectivity and correcting the DNS-related NSG restrictions.
+
+The VM successfully accessed external services while retaining private network access and the organisation's security controls.
+
+**Final Status: RESOLVED – SIMULATED INVESTIGATION**
+
+**Note:** This was a simulated Azure support exercise. No actual Azure resources were modified.
