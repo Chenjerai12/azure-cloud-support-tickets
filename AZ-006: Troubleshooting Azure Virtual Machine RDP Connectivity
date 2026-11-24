@@ -1,0 +1,102 @@
+# AZ-006: Troubleshooting Azure Virtual Machine RDP Connectivity
+
+## Project Overview
+
+This project documents a simulated Azure infrastructure incident involving a Windows Server virtual machine that became inaccessible through Remote Desktop Protocol (RDP).
+
+The objective was to investigate network connectivity, identify configuration issues and restore secure remote access.
+
+## Environment
+
+| Component | Configuration |
+|---|---|
+| Cloud platform | Microsoft Azure |
+| Virtual machine | VM-FINANCE-01 |
+| Resource group | RG-PRODUCTION |
+| Region | South Africa North |
+| Operating system | Windows Server |
+| Private IP | 10.0.1.10 |
+| Protocol | RDP |
+| Port | TCP 3389 |
+
+## Incident Description
+
+Finance employees could not connect to the virtual machine hosting their internal reporting application.
+
+The VM was running successfully, but Remote Desktop connections were failing.
+
+## Investigation and Troubleshooting
+
+### 1. Network Security Group Investigation
+
+Inspected inbound NSG rules and identified an incorrect deny configuration affecting RDP traffic.
+
+**Resolution:** Implemented an appropriately prioritised inbound Allow rule restricted to approved VPN source addresses.
+
+### 2. NSG Rule Priorities
+
+Reviewed Azure NSG rule evaluation and confirmed that lower numerical priorities are evaluated first.
+
+### 3. User Defined Routes
+
+Inspected the custom route table associated with the finance subnet.
+
+Identified a routing dependency involving a virtual network appliance.
+
+### 4. IP Forwarding
+
+Identified that IP forwarding was disabled on the virtual appliance's Azure network interface.
+
+**Resolution:** The network administrator verified the approved design and restored the required forwarding configuration.
+
+### 5. Windows Defender Firewall
+
+Investigated the Windows operating system and identified that the Remote Desktop inbound firewall rule was disabled.
+
+**Resolution:** Enabled the appropriate RDP firewall rule while maintaining approved network restrictions.
+
+### 6. Final Validation
+
+Validated the following:
+
+- VM operational status.
+- NSG inbound configuration.
+- Route table configuration.
+- Virtual appliance forwarding.
+- Windows Defender Firewall.
+- RDP service availability.
+- Successful employee connectivity.
+
+## Root Causes
+
+1. Incorrect NSG inbound security rule.
+2. Disabled IP forwarding on the virtual appliance.
+3. Disabled Windows Defender Firewall RDP inbound rule.
+
+## Technical Skills Demonstrated
+
+- Azure Virtual Machines
+- Network Security Groups
+- NSG priority evaluation
+- User Defined Routes
+- Azure Network Interfaces
+- IP Forwarding
+- Windows Server
+- Windows Defender Firewall
+- Remote Desktop Protocol
+- Network troubleshooting
+- Incident documentation
+
+## Key Takeaways
+
+Azure connectivity troubleshooting requires investigation across multiple layers.
+
+A VM can be running normally while users remain unable to connect because of network security rules, routing configuration or operating-system firewall restrictions.
+
+The exercise reinforced the importance of defence in depth and systematic troubleshooting.
+
+## Project Classification
+
+Simulated Azure Cloud Support Ticket.
+
+*This is a simulated case study and does not represent a deployment or configuration change performed in a live Azure environment.*
