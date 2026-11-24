@@ -1,0 +1,114 @@
+# AZ-005: Troubleshooting Azure Blob Storage Access Denied
+
+## Project Overview
+
+This project documents a simulated Azure support incident involving finance employees who were unable to access files stored in Azure Blob Storage.
+
+The objective was to investigate the access failure, identify the underlying causes, apply appropriate corrective actions and validate the resolution using Azure administration and troubleshooting concepts.
+
+## Environment
+
+| Component | Configuration |
+|---|---|
+| Cloud platform | Microsoft Azure |
+| Storage service | Azure Blob Storage |
+| Storage account | stfinanceprod01 |
+| Resource group | RG-PRODUCTION |
+| Region | South Africa North |
+| Identity provider | Microsoft Entra ID |
+| Network security | Private Endpoint |
+| Access management | Azure RBAC |
+
+## Incident Description
+
+Finance employees reported receiving the following error when attempting to retrieve financial reports:
+
+`AuthorizationPermissionMismatch`
+
+The issue affected multiple employees and prevented access to important monthly reporting files.
+
+## Investigation and Troubleshooting
+
+The investigation followed a structured troubleshooting approach.
+
+### 1. Azure RBAC Permissions
+
+- Reviewed the affected users' assigned roles.
+- Identified that the users had the Contributor role but lacked Blob Storage data permissions.
+- Determined that Contributor does not automatically grant access to Blob data.
+
+**Resolution:** Assigned the Storage Blob Data Reader role at the appropriate storage account scope.
+
+### 2. RBAC Propagation
+
+- Investigated whether the new role assignment had propagated.
+- Considered existing authentication sessions and token refresh requirements.
+
+**Resolution:** Allowed time for role propagation and refreshed the authentication session.
+
+### 3. Private Network Connectivity
+
+- Reviewed the storage account's network configuration.
+- Identified that public network access was disabled.
+- Confirmed that the employee was not connected to the corporate VPN.
+
+**Resolution:** Restored access through the approved corporate VPN.
+
+### 4. Private DNS Resolution
+
+- Inspected the private DNS zone.
+- Identified a missing DNS A record.
+- Confirmed that the hostname was not resolving to the private endpoint IP address.
+
+**Resolution:** Repaired the private DNS configuration.
+
+### 5. Final Validation
+
+The following checks were completed:
+
+- DNS resolution successful.
+- VPN connectivity successful.
+- Private endpoint connectivity successful.
+- Azure RBAC permissions verified.
+- Blob file retrieval tested successfully.
+
+## Root Cause
+
+The incident involved multiple configuration issues:
+
+1. Missing Azure Blob Storage data-plane permissions.
+2. Lack of approved corporate VPN connectivity.
+3. Missing private DNS record for the private endpoint.
+
+## Key Technical Concepts Learned
+
+- Azure Role-Based Access Control (RBAC)
+- Microsoft Entra ID
+- Least Privilege Principle
+- Azure Storage data-plane permissions
+- Azure Private Link
+- Azure Private Endpoints
+- Azure Private DNS
+- Virtual Network connectivity
+- DNS troubleshooting
+- Incident management and documentation
+
+## Key Takeaways
+
+This investigation reinforced an important cloud troubleshooting principle:
+
+**Successful authentication does not guarantee resource authorisation, and successful authorisation does not guarantee network connectivity.**
+
+Azure cloud engineers must investigate identity, permissions, networking and DNS independently before concluding that an incident has been resolved.
+
+## Project Type
+
+Simulated Azure Cloud Support Ticket
+
+## Skills Demonstrated
+
+Azure Administration | Cloud Troubleshooting | Identity and Access Management | Network Security | DNS | Azure Storage | Incident Resolution
+
+---
+
+*Note: This is a simulated troubleshooting exercise. The findings and resolutions are scenario-based and are not evidence of changes made to a live Azure environment.*
